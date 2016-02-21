@@ -1,6 +1,6 @@
-﻿namespace TwilioConsole
+﻿namespace TwilioConsole.Interfaces
 {
-    public interface ISmsMessage
+    public interface ISmsService
     {
         string Message { get; set; }
         string TextNumber { get; set; }

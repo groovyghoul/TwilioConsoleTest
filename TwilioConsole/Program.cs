@@ -1,4 +1,6 @@
 ﻿using Ninject;
+using TwilioConsole.Interfaces;
+using TwilioConsole.IocBootstraps;
 
 namespace TwilioConsole
 {
@@ -6,9 +8,12 @@ namespace TwilioConsole
     {
         static void Main(string[] args)
         {
-            IKernel kernel = new StandardKernel(new NinjectBootstrapModule());
-            IPrompter prompter = kernel.Get<IPrompter>();
-            ISmsMessage smsMessage = kernel.Get<ISmsMessage>();
+            IKernel kernel = new StandardKernel(new SmsMessageModule(),
+                                                new PrompterModule(),
+                                                new LoggingModule());
+
+            IPrompterService prompter = kernel.Get<IPrompterService>();
+            ISmsService smsMessage = kernel.Get<ISmsService>();
 
             smsMessage.TextNumber = prompter.Prompt("Enter text number");
             smsMessage.Message = prompter.Prompt("Enter message");

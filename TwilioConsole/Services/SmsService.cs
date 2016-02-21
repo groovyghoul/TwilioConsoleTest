@@ -1,13 +1,21 @@
 ﻿using System;
 using System.Configuration;
 using Twilio;
+using TwilioConsole.Interfaces;
 
-namespace TwilioConsole
+namespace TwilioConsole.Services
 {
-    public class SmsMessage : ISmsMessage
+    public class SmsService : ISmsService
     {
+        private readonly ILoggingService _logger;
+
         public string Message { get; set; }
         public string TextNumber { get; set; }
+
+        public SmsService(ILoggingService logger)
+        {
+            _logger = logger;
+        }
 
         public void Send()
         {
@@ -22,7 +30,10 @@ namespace TwilioConsole
             {
                 var error = message.RestException.Message;
                 // handle the error ...
+                _logger.Error(error);
             }
+            else
+                _logger.Info("Everything is groovy!");
 
         }
     }

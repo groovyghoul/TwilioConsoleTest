@@ -1,8 +1,9 @@
 ﻿using System;
+using TwilioConsole.Interfaces;
 
-namespace TwilioConsole
+namespace TwilioConsole.Services
 {
-    public class Prompter : IPrompter
+    public class PrompterService : IPrompterService
     {
         public string Prompt(string prompt)
         {
